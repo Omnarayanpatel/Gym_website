@@ -1,5 +1,5 @@
-import Card from '../../components/Card';
 import { programsData } from '../../data/programsData';
+import ProgramCard from '../programs/ProgramCard';
 
 export default function ProgramsPreview() {
   return (
@@ -12,9 +12,9 @@ export default function ProgramsPreview() {
           </div>
           <p className="section-copy">Short, clear program cards make it easy for a visitor to pick a goal and move into the right plan.</p>
         </div>
-        <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', marginTop: 24 }}>
+        <div className="grid programs-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', marginTop: 24 }}>
           {programsData.map((program) => (
-            <Card key={program.title} title={program.title} description={program.description} badge={`Recommended: ${program.recommendedPlan}`} />
+            <ProgramCard key={program.title} program={program} />
           ))}
         </div>
       </div>

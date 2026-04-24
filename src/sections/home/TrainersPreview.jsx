@@ -1,5 +1,5 @@
-import Card from '../../components/Card';
 import { trainersData } from '../../data/trainersData';
+import TrainerCard from '../trainers/TrainerCard';
 
 export default function TrainersPreview() {
   return (
@@ -8,18 +8,13 @@ export default function TrainersPreview() {
         <div className="section-head">
           <div>
             <p className="eyebrow">Coaches</p>
-            <h2 className="section-title">Trainer-led, not machine-made</h2>
+            <h2 className="section-title">Meet the coaching team</h2>
           </div>
-          <p className="section-copy">Users trust the gym more when the coaching team looks experienced, visible, and approachable.</p>
+          <p className="section-copy">The right coach makes the first month easier, more personal, and a lot more consistent.</p>
         </div>
-        <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', marginTop: 24 }}>
+        <div className="grid trainers-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', marginTop: 24 }}>
           {trainersData.map((trainer) => (
-            <Card
-              key={trainer.name}
-              title={trainer.name}
-              badge={trainer.experience}
-              description={trainer.specialization}
-            />
+            <TrainerCard key={trainer.name} trainer={trainer} />
           ))}
         </div>
       </div>

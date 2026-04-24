@@ -4,8 +4,14 @@ export default function Contact() {
       <div className="container grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
         <div>
           <p className="eyebrow">Contact</p>
-          <h1 className="section-title">Let’s capture the lead</h1>
-          <p className="section-copy">Name, mobile number, email, and message form will go here with gym address and map.</p>
+          <h1 className="section-title">Let's capture the lead</h1>
+          <p className="section-copy">
+            Fill in your details to ask about membership, book a free trial, or request a callback from our team.
+            We reply quickly during working hours and help you choose the right plan.
+          </p>
+          <p className="section-copy" style={{ marginTop: 16 }}>
+            Address, WhatsApp link, and map can be added here once the gym owner shares the final business details.
+          </p>
         </div>
         <form className="card" style={{ padding: 24, display: 'grid', gap: 14 }}>
           <input placeholder="Name" style={fieldStyle} />

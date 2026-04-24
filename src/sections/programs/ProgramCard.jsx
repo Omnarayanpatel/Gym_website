@@ -1,9 +1,20 @@
 export default function ProgramCard({ program }) {
   return (
-    <article className="card" style={{ padding: 24 }}>
-      <div className="pill" style={{ marginBottom: 14 }}>{program.recommendedPlan}</div>
-      <h3 style={{ marginTop: 0 }}>{program.title}</h3>
-      <p className="muted" style={{ marginBottom: 0 }}>{program.description}</p>
+    <article className="card program-card">
+      <div className="program-card__image" style={{ backgroundImage: `url(${program.image})` }} />
+      <div className="program-card__topline" />
+      <div className="program-card__content">
+        <div className="program-card__meta">
+          <span className="program-card__label">Recommended</span>
+          <span className="program-card__plan">{program.recommendedPlan}</span>
+        </div>
+        <h3 className="program-card__title">{program.title}</h3>
+        <p className="program-card__copy">{program.description}</p>
+        <div className="program-card__footer">
+          <span>Goal-based training</span>
+          <span className="program-card__arrow">-&gt;</span>
+        </div>
+      </div>
     </article>
   );
 }
