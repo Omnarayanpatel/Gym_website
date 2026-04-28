@@ -11,10 +11,12 @@ export default function TrainerCard({ trainer }) {
 
       <h3 className="trainer-card__name">{trainer.name}</h3>
       <p className="trainer-card__bio">{trainer.bio}</p>
+      <p className="trainer-card__details">{trainer.details}</p>
 
       <div className="trainer-card__footer">
-        <span>Strength coaching</span>
-        <span>Personal support</span>
+        {(trainer.support || ['Strength coaching', 'Personal support']).map((item) => (
+          <span key={item}>{item}</span>
+        ))}
       </div>
     </article>
   );

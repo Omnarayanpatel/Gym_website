@@ -10,6 +10,12 @@ export default function ProgramCard({ program }) {
         </div>
         <h3 className="program-card__title">{program.title}</h3>
         <p className="program-card__copy">{program.description}</p>
+        <p className="program-card__details">{program.details}</p>
+        <div className="program-card__chips">
+          {(program.outcomes || []).map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
         <div className="program-card__footer">
           <span>Goal-based training</span>
           <span className="program-card__arrow">-&gt;</span>
