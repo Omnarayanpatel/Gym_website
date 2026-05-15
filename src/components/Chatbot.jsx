@@ -1,51 +1,56 @@
+import { useEffect, useRef } from 'react';
 import Button from './Button';
 import useChatbot from '../hooks/useChatbot';
+import { quickChatPrompts } from '../services/chatbotService';
 
 export default function Chatbot() {
   const { messages, input, setInput, open, setOpen, canSend, sendMessage } = useChatbot();
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [messages, open]);
 
   return (
-    <div style={{ width: 320, maxWidth: 'calc(100vw - 40px)' }}>
+    <div className="chatbot-widget">
       {open ? (
-        <div className="card" style={{ overflow: 'hidden' }}>
-          <div style={{ padding: 16, borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <strong>AI Trainer Bot</strong>
-            <button className="btn btn-secondary" onClick={() => setOpen(false)} style={{ padding: '8px 12px' }}>
-              Close
+        <div className="chatbot-panel card">
+          <div className="chatbot-head">
+            <div className="chatbot-avatar" aria-hidden="true">PF</div>
+            <div className="chatbot-head__copy">
+              <strong>PowerFit Assistant</strong>
+              <span className="chatbot-status">Online now</span>
+            </div>
+            <button className="chatbot-icon-btn" onClick={() => setOpen(false)} aria-label="Close chat">
+              x
             </button>
           </div>
-          <div style={{ padding: 16, maxHeight: 260, overflow: 'auto', display: 'grid', gap: 12 }}>
+          <div className="chatbot-messages">
             {messages.map((message) => (
               <div
                 key={message.id}
-                style={{
-                  justifySelf: message.role === 'user' ? 'end' : 'start',
-                  background: message.role === 'user' ? 'rgba(110, 231, 255, 0.16)' : 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: 16,
-                  padding: '10px 12px',
-                  maxWidth: '90%',
-                }}
+                className={`chatbot-bubble ${message.role === 'user' ? 'is-user' : 'is-assistant'}`}
               >
                 {message.text}
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
-          <div style={{ padding: 16, borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', gap: 8 }}>
+          <div className="chatbot-prompts" aria-label="Quick gym questions">
+            {quickChatPrompts.map((prompt) => (
+              <button key={prompt} type="button" onClick={() => sendMessage(prompt)}>
+                {prompt}
+              </button>
+            ))}
+          </div>
+          <div className="chatbot-compose">
             <input
               value={input}
               onChange={(event) => setInput(event.target.value)}
               onKeyDown={(event) => event.key === 'Enter' && sendMessage()}
-              placeholder="Type your goal..."
-              style={{
-                flex: 1,
-                minWidth: 0,
-                background: 'rgba(255,255,255,0.05)',
-                color: 'var(--text)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 999,
-                padding: '12px 14px',
-              }}
+              placeholder="Ask gym question..."
             />
             <Button onClick={sendMessage} disabled={!canSend}>
               Send
@@ -53,9 +58,15 @@ export default function Chatbot() {
           </div>
         </div>
       ) : (
-        <Button onClick={() => setOpen(true)} className="btn-primary" style={{ width: '100%' }}>
-          Chat with AI
-        </Button>
+        <button type="button" onClick={() => setOpen(true)} className="chatbot-launch" aria-label="Open gym chat">
+          <span className="chatbot-launch__pulse" aria-hidden="true" />
+          <span className="chatbot-launch__icon" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </span>
+          <span className="chatbot-launch__text">Chat with us</span>
+        </button>
       )}
     </div>
   );
